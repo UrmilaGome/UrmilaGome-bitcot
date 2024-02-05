@@ -36,7 +36,6 @@ const contactSlice = createSlice({
             return {
                 ...state,
                 contacts: state.contacts.filter((contact) => contact.id !== action.payload),
-                search: state.search.filter((contact) => contact.id !== action.payload)
 
             }
         },
@@ -47,7 +46,12 @@ const contactSlice = createSlice({
                 contacts: [action.payload, ...state.contacts]
             }
         },
-
+searchClear  : (state,action)=>{
+return{
+    ...state,
+    search : null
+}
+},
         view: (state, action) => {
             return {
                 ...state,
@@ -62,12 +66,7 @@ const contactSlice = createSlice({
             }
 
         },
-        search : (state,action)=>{
-            return{
-                ...state,
-                search : state.contacts.filter((item)=> item.PersonName.includes(action.payload))
-            }
-        },
+
 
         update: (state, action) => {
             console.log(action.payload);
@@ -83,17 +82,7 @@ const contactSlice = createSlice({
                             email: action.payload.email,
                         } : contact
                 ),
-                search: state.search.map((search) =>
-                    // console.log(contact.id === action.payload.id)
-                    search.id === action.payload.id ?
-                        {
-                            ...search,
-                            PersonName: action.payload.PersonName,
-                            mobile: action.payload.mobile,
-                            email: action.payload.email,
-                        } : search
-                ),
-
+     
                 editcontact: {
                     contact: {},
                     isedit: false,
@@ -103,5 +92,5 @@ const contactSlice = createSlice({
     }
 })
 // , add, edit, update
-export const { remove, add, edit, update, view,search } = contactSlice.actions;
+export const { remove, add, edit, update, view } = contactSlice.actions;
 export default contactSlice.reducer;
